@@ -4,7 +4,7 @@
     <properties resource="db.properties"/>
 
     <typeAliases>
-        <package name="com.com.jiadong.domain"/>
+        <package name="com.jiadong.domain"/>
     </typeAliases>
 
     <environments default="mysql">
@@ -20,8 +20,7 @@
     </environments>
 
     <mappers>
-
-        <mapper resource="com/com.jiadong/dao/UserDao.xml"/>
+        <mapper class="com.jiadong.dao.UserDao"/>
     </mappers>
 
 </configuration>
