@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 配置spring的Ioc，把serviced对象配置进来-->
+    <bean id="accountService" class="com.jiadong.service.impl.AccountServiceImpl"></bean>
+
+    <!--配置Logger类-->
+    <bean id="logger" class="com.jiadong.utils.Logger"></bean>
+
+    <!--配置aop-->
+    <aop:config>
+        <!--配置切面-->
+        <aop:aspect id="logAdvice" ref="logger">
+            <!--配置环绕通知， 详细的注释请看Logger类中-->
+            <aop:around method="aroundPrintLog" pointcut-ref="pt1"></aop:around>
+            <aop:pointcut id="pt1" expression="execution(* com.jiadong.service.impl.*.*(..))"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

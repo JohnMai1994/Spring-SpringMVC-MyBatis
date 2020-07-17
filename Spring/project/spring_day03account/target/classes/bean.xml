@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--配置代理的service-->
+    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>
+
+
+
+    <!--配置beanfactory-->
+    <bean id="beanFactory" class="com.jiadong.factory.BeanFactory">
+        <!--注入service-->
+        <property name="accountService" ref="accountService"></property>
+        <!--注入事务管理器-->
+        <property name="txManager" ref="txManager"></property>
+    </bean>
+
+    <!--配置service-->
+    <bean id="accountService" class="com.jiadong.service.impl.AccountServiceImpl">
+        <!-- 注入dao对象 -->
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
+
+    <bean id="accountDao" class="com.jiadong.dao.impl.AccountDaoImpl">
+        <!--注入QueryRunner-->
+        <property name="runner" ref="runner"></property>
+        <!--注入ConnectionUtils-->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <!--配置QueryRunner-->
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+    </bean>
+
+    <!--配置Connection的工具类 ConnectionUtils-->
+    <bean id="connectionUtils" class="com.jiadong.utils.ConnectionUtils">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--连接数据库的必备信息-->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/myusers?useUnicode=true&amp;characterEncoding=utf8" ></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="password"></property>
+     </bean>
+
+    <!--配置事务管理器-->
+    <bean id="txManager" class="com.jiadong.utils.TransactionManager">
+        <!--注入ConnectionUtils-->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+
+
+
+
+
+
+</beans>
