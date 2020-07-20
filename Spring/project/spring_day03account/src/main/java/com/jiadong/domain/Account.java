@@ -11,6 +11,7 @@ public class Account implements Serializable {
     private String name;
     private Float money;
 
+
     @Override
     public String toString() {
         return "Account{" +

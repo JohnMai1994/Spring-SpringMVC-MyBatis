@@ -3,11 +3,10 @@ package com.jiadong.service.impl;
 import com.jiadong.dao.IAccountDao;
 import com.jiadong.domain.Account;
 import com.jiadong.service.IAccountService;
-import com.jiadong.utils.TransactionManager;
 
 import java.util.List;
 
-public class AccountServiceImpl implements IAccountService {
+public class AccountServiceImpl  implements IAccountService  {
 
     private IAccountDao accountDao;
 
@@ -60,4 +59,5 @@ public class AccountServiceImpl implements IAccountService {
         accountDao.updateAccount(target);
 
     }
+
 }

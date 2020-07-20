@@ -16,7 +16,6 @@
             <result property="roleName" column="ROLE_NAME"></result>
             <result property="roleDesc" column="ROLE_DESC"></result>
         </collection>
-
     </resultMap>
 
 
